@@ -1,0 +1,58 @@
+/* Blur unwatched episode thumbnails to prevent spoilers */
+
+/* List view: hide original bg, show blurred copy */
+div[data-type="Episode"] .listItemImage.listItemImage-large.itemAction:not(:has(.playedIndicator)) {
+    position: relative;
+    background-size: 0 !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+div[data-type="Episode"] .listItemImage.listItemImage-large.itemAction:not(:has(.playedIndicator))::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: inherit;
+    background-size: cover !important;
+    filter: blur(30px);
+    clip-path: inset(0);
+    z-index: 0;
+}
+
+/* List view: keep play button above blur */
+div[data-type="Episode"] .listItemImage.listItemImage-large.itemAction:not(:has(.playedIndicator)) > button {
+    position: relative;
+    z-index: 11;
+}
+
+/* Card view: hide original bg, show blurred copy */
+.nextUpSection div[data-type="Episode"] a.cardImageContainer.cardContent:not(:has(.playedIndicator)),
+.moreFromSeasonSection div[data-type="Episode"] a.cardImageContainer.cardContent:not(:has(.playedIndicator)),
+.vertical-wrap div[data-type="Episode"] a.cardImageContainer.cardContent:not(:has(.playedIndicator)) {
+    background-size: 0 !important;
+    animation: none !important;
+    transition: none !important;
+}
+
+.nextUpSection div[data-type="Episode"] a.cardImageContainer.cardContent:not(:has(.playedIndicator))::before,
+.moreFromSeasonSection div[data-type="Episode"] a.cardImageContainer.cardContent:not(:has(.playedIndicator))::before,
+.vertical-wrap div[data-type="Episode"] a.cardImageContainer.cardContent:not(:has(.playedIndicator))::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: inherit;
+    background-size: cover !important;
+    filter: blur(30px);
+    clip-path: inset(0);
+    z-index: 1;
+}
+
+/* Card view: keep blur on hover overlay */
+.nextUpSection div[data-type="Episode"]:not(:has(.playedIndicator)) .cardOverlayContainer,
+.moreFromSeasonSection div[data-type="Episode"]:not(:has(.playedIndicator)) .cardOverlayContainer,
+.vertical-wrap div[data-type="Episode"]:not(:has(.playedIndicator)) .cardOverlayContainer {
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+}
